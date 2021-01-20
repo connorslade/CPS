@@ -12,7 +12,17 @@ using Gma.System.MouseKeyHook;
 namespace CPS
 {
     public partial class Form1 : Form
-    {
+    {   
+        /// <summary>
+        /// Define Colors
+        /// </summary>
+        Color DM_BG = Color.FromArgb(36, 41, 51);
+        Color DM_FG = Color.FromArgb(236, 239, 244);
+
+        Color LM_BG = Color.FromArgb(240, 240, 240);
+        Color LM_FG = Color.FromArgb(0, 0, 0);
+
+
         private IKeyboardMouseEvents m_GlobalHook;
         private float clickTime;
         public int clickMax = 0;
@@ -158,6 +168,26 @@ namespace CPS
             {
                 stayOnTopToolStripMenuItem.Checked = true;
                 this.TopMost = true;
+            }
+        }
+
+        private void darkModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (darkModeToolStripMenuItem.Checked)
+            {
+                darkModeToolStripMenuItem.Checked = false;
+                this.BackColor = LM_BG;
+                label1.ForeColor = LM_FG;
+                label2.ForeColor = LM_FG;
+                CPSmax.ForeColor = LM_FG;
+            }
+            else
+            {
+                darkModeToolStripMenuItem.Checked = true;
+                this.BackColor = DM_BG;
+                label1.ForeColor = DM_FG;
+                label2.ForeColor = DM_FG;
+                CPSmax.ForeColor = DM_FG;
             }
         }
     }

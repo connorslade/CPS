@@ -44,6 +44,7 @@ namespace CPS
             this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.CPSmax = new System.Windows.Forms.Label();
+            this.darkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@ namespace CPS
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(244)))));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(203, 55);
@@ -80,12 +82,13 @@ namespace CPS
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonToolStripMenuItem,
+            this.darkModeToolStripMenuItem,
             this.maxCPSToolStripMenuItem,
             this.maxCPSResetToolStripMenuItem,
             this.stayOnTopToolStripMenuItem,
             this.creditsToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 136);
             // 
             // buttonToolStripMenuItem
             // 
@@ -146,6 +149,7 @@ namespace CPS
             // CPSmax
             // 
             this.CPSmax.AutoSize = true;
+            this.CPSmax.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(244)))));
             this.CPSmax.Location = new System.Drawing.Point(2, 66);
             this.CPSmax.Name = "CPSmax";
             this.CPSmax.Size = new System.Drawing.Size(36, 13);
@@ -153,10 +157,20 @@ namespace CPS
             this.CPSmax.Text = "MAX: ";
             this.CPSmax.Visible = false;
             // 
+            // darkModeToolStripMenuItem
+            // 
+            this.darkModeToolStripMenuItem.Checked = true;
+            this.darkModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
+            this.darkModeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.darkModeToolStripMenuItem.Text = "Dark Mode";
+            this.darkModeToolStripMenuItem.Click += new System.EventHandler(this.darkModeToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(51)))));
             this.ClientSize = new System.Drawing.Size(229, 81);
             this.Controls.Add(this.CPSmax);
             this.Controls.Add(this.button1);
@@ -189,6 +203,7 @@ namespace CPS
         private System.Windows.Forms.Label CPSmax;
         private System.Windows.Forms.ToolStripMenuItem maxCPSResetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stayOnTopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem darkModeToolStripMenuItem;
     }
 }
 
