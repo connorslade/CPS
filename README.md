@@ -4,10 +4,13 @@
 
 A program I made to measure your CPS or Clicks per Second. It has the ability to show your max CPS and it can stay ontop of other windows / games.
 
-![Image](https://i.imgur.com/qPa2AgA.png)
+![Image](https://i.imgur.com/hqPBAew.png)
+
+[The Main Window (Dark Mode)]
+
+![Image](https://i.imgur.com/ISqYNS3.png)
 
 [The Main Window]
-
 
 ![CPS display being used with Minecraft](https://i.imgur.com/GHYIIHL.jpg)
 
