@@ -12,10 +12,11 @@ A program I made to measure your CPS or Clicks per second. It has the ability to
 
 [The Main Window]
 
+![Dropdown](https://i.imgur.com/Vgl25Uw.png)
+
+[The Dropdown Menu]
+
 ![CPS display being used with Minecraft](https://i.imgur.com/GHYIIHL.jpg)
 
 [CPS Display being used with Minecraft]
 
-![Dropdown](https://i.imgur.com/Vgl25Uw.png)
-
-[The Dropdown Menu]
