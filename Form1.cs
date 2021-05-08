@@ -35,6 +35,26 @@ namespace CPS
             timer1.Start();
         }
 
+        private void UpdateColors()
+        {
+            if (darkModeToolStripMenuItem.Checked)
+            {
+                darkModeToolStripMenuItem.Checked = false;
+                this.BackColor = LM_BG;
+                label1.ForeColor = LM_FG;
+                label2.ForeColor = LM_FG;
+                CPSmax.ForeColor = LM_FG;
+            }
+            else
+            {
+                darkModeToolStripMenuItem.Checked = true;
+                this.BackColor = DM_BG;
+                label1.ForeColor = DM_FG;
+                label2.ForeColor = DM_FG;
+                CPSmax.ForeColor = DM_FG;
+            }
+        }
+
         public void Subscribe()
         {
             m_GlobalHook = Hook.GlobalEvents();
@@ -173,22 +193,7 @@ namespace CPS
 
         private void darkModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (darkModeToolStripMenuItem.Checked)
-            {
-                darkModeToolStripMenuItem.Checked = false;
-                this.BackColor = LM_BG;
-                label1.ForeColor = LM_FG;
-                label2.ForeColor = LM_FG;
-                CPSmax.ForeColor = LM_FG;
-            }
-            else
-            {
-                darkModeToolStripMenuItem.Checked = true;
-                this.BackColor = DM_BG;
-                label1.ForeColor = DM_FG;
-                label2.ForeColor = DM_FG;
-                CPSmax.ForeColor = DM_FG;
-            }
+            UpdateColors();
         }
 
         private void showTitleBarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -196,6 +201,23 @@ namespace CPS
             showTitleBarToolStripMenuItem.Checked = !showTitleBarToolStripMenuItem.Checked;
             this.FormBorderStyle = showTitleBarToolStripMenuItem.Checked ? FormBorderStyle.None : FormBorderStyle.FixedDialog;
             this.Size = showTitleBarToolStripMenuItem.Checked ? new Size(230, 80) : new Size(245, 120);
+        }
+
+        private void transparentalphaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            transparentalphaToolStripMenuItem.Checked = !transparentalphaToolStripMenuItem.Checked;
+
+            if (transparentalphaToolStripMenuItem.Checked)
+            {
+                this.BackColor = Color.FromArgb(1, 1, 1);
+                this.TransparencyKey = Color.FromArgb(1, 1, 1);
+                this.AllowTransparency = true;
+            }
+            else
+            {
+                UpdateColors();
+                this.AllowTransparency = false;
+            }
         }
     }
 }
