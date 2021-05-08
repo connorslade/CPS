@@ -62,7 +62,7 @@ namespace CPS
                     clickMax = calc;
                     if (clickMax.ToString().Length < 2)
                     {
-                    CPSmax.Text = "MAX: 0" + calc.ToString();
+                        CPSmax.Text = "MAX: 0" + calc.ToString();
                     }
                     else
                     {
@@ -189,6 +189,13 @@ namespace CPS
                 label2.ForeColor = DM_FG;
                 CPSmax.ForeColor = DM_FG;
             }
+        }
+
+        private void showTitleBarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showTitleBarToolStripMenuItem.Checked = !showTitleBarToolStripMenuItem.Checked;
+            this.FormBorderStyle = showTitleBarToolStripMenuItem.Checked ? FormBorderStyle.None : FormBorderStyle.FixedDialog;
+            this.Size = showTitleBarToolStripMenuItem.Checked ? new Size(230, 80) : new Size(245, 120);
         }
     }
 }
