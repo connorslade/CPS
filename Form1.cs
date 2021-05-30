@@ -12,7 +12,7 @@ using Gma.System.MouseKeyHook;
 namespace CPS
 {
     public partial class Form1 : Form
-    {   
+    {
         /// <summary>
         /// Define Colors
         /// </summary>
@@ -25,21 +25,23 @@ namespace CPS
 
         private IKeyboardMouseEvents m_GlobalHook;
         private float clickTime;
+        private float clickTimeR;
         public int clickMax = 0;
-        
+
         public Form1()
         {
             InitializeComponent();
             leftToolStripMenuItem.Checked = true;
             Subscribe();
             timer1.Start();
+            timer2.Start();
         }
 
         private void UpdateColors()
         {
+            darkModeToolStripMenuItem.Checked = !darkModeToolStripMenuItem.Checked;
             if (darkModeToolStripMenuItem.Checked)
             {
-                darkModeToolStripMenuItem.Checked = false;
                 this.BackColor = LM_BG;
                 label1.ForeColor = LM_FG;
                 label2.ForeColor = LM_FG;
@@ -47,7 +49,6 @@ namespace CPS
             }
             else
             {
-                darkModeToolStripMenuItem.Checked = true;
                 this.BackColor = DM_BG;
                 label1.ForeColor = DM_FG;
                 label2.ForeColor = DM_FG;
@@ -63,161 +64,142 @@ namespace CPS
 
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
         {
-            timer1.Stop();
-            string mouseButton;
-            if (rightToolStripMenuItem.Checked)
+            if (e.Button.ToString() == "Left")
             {
-                mouseButton = "Right";
-            }
-            else
-            {
-                mouseButton = "Left";
-            }
-            if (e.Button.ToString() == mouseButton)
-            {
+                timer1.Stop();
                 int calc = (int)e.Timestamp - (int)clickTime;
                 calc = 1000 / calc;
-                if (calc > clickMax)
+                if (calc > clickMax) CPSmax.Text = "MAX: " + calc.ToString();
+                label1.Text = calc.ToString().PadLeft(2, '0');
+                clickTime = e.Timestamp;
+                timer1.Start();
+            }
+            if (e.Button.ToString() == "Right")
+            {
+                timer2.Stop();
+                int calc = (int)e.Timestamp - (int)clickTimeR;
+                calc = 1000 / calc;
+                if (calc > clickMax) CPSmax.Text = "MAX: " + calc.ToString();
+                label3.Text = calc.ToString().PadLeft(2, '0');
+                clickTimeR = e.Timestamp;
+                timer2.Start();
+            }
+        }
+
+            public void Unsubscribe()
+            {
+                m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
+                m_GlobalHook.Dispose();
+            }
+
+            private void button1_Click(object sender, EventArgs e)
+            {
+                Button btnSender = (Button)sender;
+                Point ptLowerLeft = new Point(0, btnSender.Height);
+                ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
+                contextMenuStrip1.Show(ptLowerLeft);
+            }
+
+            private void creditsToolStripMenuItem_Click(object sender, EventArgs e)
+            {
+                Credits credits = new Credits();
+                credits.Show();
+            }
+
+            private void leftToolStripMenuItem_Click(object sender, EventArgs e)
+            {
+                if (leftToolStripMenuItem.Checked)
                 {
-                    clickMax = calc;
-                    if (clickMax.ToString().Length < 2)
-                    {
-                        CPSmax.Text = "MAX: 0" + calc.ToString();
-                    }
-                    else
-                    {
-                        CPSmax.Text = "MAX: " + calc.ToString();
-                    }
-                }
-                if (calc.ToString().Length < 2)
-                {
-                    label1.Text = "CPS: 0" + calc.ToString();
+                    leftToolStripMenuItem.Checked = false;
+                    rightToolStripMenuItem.Checked = true;
                 }
                 else
                 {
-                    label1.Text = "CPS: " + calc.ToString();
+                    leftToolStripMenuItem.Checked = true;
+                    rightToolStripMenuItem.Checked = false;
                 }
-                clickTime = e.Timestamp;
-                timer1.Start();
-
             }
 
-        }
-
-        public void Unsubscribe()
-        {
-            m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
-            m_GlobalHook.Dispose();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Button btnSender = (Button)sender;
-            Point ptLowerLeft = new Point(0, btnSender.Height);
-            ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
-            contextMenuStrip1.Show(ptLowerLeft);
-        }
-
-        private void creditsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Credits credits = new Credits();
-            credits.Show();
-        }
-
-        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (leftToolStripMenuItem.Checked)
+            private void rightToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                leftToolStripMenuItem.Checked = false;
-                rightToolStripMenuItem.Checked = true;
+                if (rightToolStripMenuItem.Checked)
+                {
+                    rightToolStripMenuItem.Checked = false;
+                    leftToolStripMenuItem.Checked = true;
+                }
+                else
+                {
+                    rightToolStripMenuItem.Checked = true;
+                    leftToolStripMenuItem.Checked = false;
+                }
             }
-            else
+
+            private void timer1_Tick(object sender, EventArgs e)
             {
-                leftToolStripMenuItem.Checked = true;
-                rightToolStripMenuItem.Checked = false;
+                label1.Text = "00";
             }
-        }
 
-        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (rightToolStripMenuItem.Checked)
+            private void maxCPSToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                rightToolStripMenuItem.Checked = false;
-                leftToolStripMenuItem.Checked = true;
+                if (maxCPSToolStripMenuItem.Checked)
+                {
+                    maxCPSToolStripMenuItem.Checked = false;
+                    CPSmax.Visible = false;
+                }
+                else
+                {
+                    maxCPSToolStripMenuItem.Checked = true;
+                    CPSmax.Visible = true;
+                }
             }
-            else
+
+            private void maxCPSResetToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                rightToolStripMenuItem.Checked = true;
-                leftToolStripMenuItem.Checked = false;
+                clickMax = 0;
+                CPSmax.Text = "MAX: 00";
             }
-        }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            label1.Text = "CPS: 00";
-        }
-
-        private void maxCPSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (maxCPSToolStripMenuItem.Checked)
+            private void stayOnTopToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                maxCPSToolStripMenuItem.Checked = false;
-                CPSmax.Visible = false;
+                if (stayOnTopToolStripMenuItem.Checked)
+                {
+                    stayOnTopToolStripMenuItem.Checked = false;
+                    this.TopMost = false;
+                }
+                else
+                {
+                    stayOnTopToolStripMenuItem.Checked = true;
+                    this.TopMost = true;
+                }
             }
-            else
-            {
-                maxCPSToolStripMenuItem.Checked = true;
-                CPSmax.Visible = true;
-            }
-        }
 
-        private void maxCPSResetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clickMax = 0;
-            CPSmax.Text = "MAX: 00";
-        }
-
-        private void stayOnTopToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (stayOnTopToolStripMenuItem.Checked)
-            {
-                stayOnTopToolStripMenuItem.Checked = false;
-                this.TopMost = false;
-            }
-            else
-            {
-                stayOnTopToolStripMenuItem.Checked = true;
-                this.TopMost = true;
-            }
-        }
-
-        private void darkModeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UpdateColors();
-        }
-
-        private void showTitleBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            showTitleBarToolStripMenuItem.Checked = !showTitleBarToolStripMenuItem.Checked;
-            this.FormBorderStyle = showTitleBarToolStripMenuItem.Checked ? FormBorderStyle.None : FormBorderStyle.FixedDialog;
-            this.Size = showTitleBarToolStripMenuItem.Checked ? new Size(230, 80) : new Size(245, 120);
-        }
-
-        private void transparentalphaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            transparentalphaToolStripMenuItem.Checked = !transparentalphaToolStripMenuItem.Checked;
-
-            if (transparentalphaToolStripMenuItem.Checked)
-            {
-                this.BackColor = Color.FromArgb(1, 1, 1);
-                this.TransparencyKey = Color.FromArgb(1, 1, 1);
-                this.AllowTransparency = true;
-            }
-            else
+            private void darkModeToolStripMenuItem_Click(object sender, EventArgs e)
             {
                 UpdateColors();
-                this.AllowTransparency = false;
+            }
+
+            private void showTitleBarToolStripMenuItem_Click(object sender, EventArgs e)
+            {
+                showTitleBarToolStripMenuItem.Checked = !showTitleBarToolStripMenuItem.Checked;
+                this.FormBorderStyle = showTitleBarToolStripMenuItem.Checked ? FormBorderStyle.None : FormBorderStyle.FixedDialog;
+                this.Size = showTitleBarToolStripMenuItem.Checked ? new Size(230, 80) : new Size(245, 120);
+            }
+
+            private void transparentalphaToolStripMenuItem_Click(object sender, EventArgs e)
+            {
+                transparentalphaToolStripMenuItem.Checked = !transparentalphaToolStripMenuItem.Checked;
+
+                if (transparentalphaToolStripMenuItem.Checked)
+                {
+                    this.BackColor = Color.FromArgb(1, 1, 1);
+                    this.TransparencyKey = Color.FromArgb(1, 1, 1);
+                    this.AllowTransparency = true;
+                }
+                else
+                {
+                    UpdateColors();
+                    this.AllowTransparency = false;
+                }
             }
         }
     }
-}
