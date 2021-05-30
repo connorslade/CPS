@@ -13,9 +13,6 @@ namespace CPS
 {
     public partial class Form1 : Form
     {
-        /// <summary>
-        /// Define Colors
-        /// </summary>
         Color DM_BG = Color.FromArgb(36, 41, 51);
         Color DM_FG = Color.FromArgb(236, 239, 244);
 
@@ -40,20 +37,20 @@ namespace CPS
         private void UpdateColors()
         {
             darkModeToolStripMenuItem.Checked = !darkModeToolStripMenuItem.Checked;
-            if (darkModeToolStripMenuItem.Checked)
+            if (!darkModeToolStripMenuItem.Checked)
             {
                 this.BackColor = LM_BG;
                 label1.ForeColor = LM_FG;
                 label2.ForeColor = LM_FG;
+                label3.ForeColor = LM_FG;
                 CPSmax.ForeColor = LM_FG;
+                return;
             }
-            else
-            {
-                this.BackColor = DM_BG;
-                label1.ForeColor = DM_FG;
-                label2.ForeColor = DM_FG;
-                CPSmax.ForeColor = DM_FG;
-            }
+            this.BackColor = DM_BG;
+            label1.ForeColor = DM_FG;
+            label2.ForeColor = DM_FG;
+            label2.ForeColor = DM_FG;
+            CPSmax.ForeColor = DM_FG;
         }
 
         public void Subscribe()
@@ -112,12 +109,10 @@ namespace CPS
                 {
                     leftToolStripMenuItem.Checked = false;
                     rightToolStripMenuItem.Checked = true;
+                    return;
                 }
-                else
-                {
-                    leftToolStripMenuItem.Checked = true;
-                    rightToolStripMenuItem.Checked = false;
-                }
+                leftToolStripMenuItem.Checked = true;
+                rightToolStripMenuItem.Checked = false;
             }
 
             private void rightToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,6 +121,7 @@ namespace CPS
                 {
                     rightToolStripMenuItem.Checked = false;
                     leftToolStripMenuItem.Checked = true;
+                    return;
                 }
                 else
                 {
@@ -182,7 +178,7 @@ namespace CPS
             {
                 showTitleBarToolStripMenuItem.Checked = !showTitleBarToolStripMenuItem.Checked;
                 this.FormBorderStyle = showTitleBarToolStripMenuItem.Checked ? FormBorderStyle.None : FormBorderStyle.FixedDialog;
-                this.Size = showTitleBarToolStripMenuItem.Checked ? new Size(230, 80) : new Size(245, 120);
+                this.Size = showTitleBarToolStripMenuItem.Checked ? new Size(182, 81) : new Size(198, 120);
             }
 
             private void transparentalphaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -194,12 +190,10 @@ namespace CPS
                     this.BackColor = Color.FromArgb(1, 1, 1);
                     this.TransparencyKey = Color.FromArgb(1, 1, 1);
                     this.AllowTransparency = true;
+                    return;
                 }
-                else
-                {
-                    UpdateColors();
-                    this.AllowTransparency = false;
-                }
+                UpdateColors();
+                this.AllowTransparency = false;
             }
-        }
+    }
     }

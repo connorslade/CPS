@@ -49,6 +49,7 @@ namespace CPS
             this.CPSmax = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -197,12 +198,21 @@ namespace CPS
             this.label3.TabIndex = 5;
             this.label3.Text = "00";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(94)))), ((int)(((byte)(103)))));
+            this.panel1.Location = new System.Drawing.Point(87, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(3, 88);
+            this.panel1.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(51)))));
             this.ClientSize = new System.Drawing.Size(182, 81);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.CPSmax);
@@ -238,6 +248,7 @@ namespace CPS
         private System.Windows.Forms.ToolStripMenuItem transparentalphaToolStripMenuItem;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
